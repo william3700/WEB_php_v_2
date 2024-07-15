@@ -3,6 +3,7 @@ include("../Conexion/conexionDB.php");
 $con=new Conexion();
 $listaAsignaturas=$con->lista_asignaturas();
 $listaAsignaturas1=$con->lista_asignaturas();
+$listaAsignaturas2=$con->lista_asignaturas();
 
 ?>
 <!DOCTYPE html>
@@ -75,51 +76,55 @@ $listaAsignaturas1=$con->lista_asignaturas();
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <form method="POST" action="../Modulos/registroEstudiantes.php">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Módulo de registro de estudiantes
-                                        </h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <!--INICIO-->
-                                        <label for="datosNotas_1" class="form-label"><strong>Semestre</strong></label>
-                                        <select class="form-select" id="datosNotas_1" name="datosNotas_1"
-                                            aria-label="Default select example">
-                                            <option selected>Abrir este menú de selección</option>
-                                            <option value="2024-I">2024-I</option>
-                                            <option value="2024-II">2024-II</option>
-                                            <option value="2025-I">2025-I</option>
-                                            <option value="2025-II">2025-II</option>
-                                            <option value="2026-I">2026-I</option>
-                                            <option value="2026-II">2026-II</option>
-                                            <option value="2027-I">2027-I</option>
-                                            <option value="2027-II">2027-II</option>
-                                            <option value="2028-I">2028-I</option>
-                                            <option value="2028-II">2028-II</option>
-                                            <option value="2029-I">2029-I</option>
-                                            <option value="2029-II">2029-II</option>
-                                            <option value="2030-I">2030-I</option>
-                                            <option value="2030-II">2030-II</option>
-                                        </select>
-                                        <br />
-                                        <label for="datosNotas_2" class="form-label"><strong>Asignatura</strong></label>
-                                        <select class="form-select" id="datosNotas_2" name="datosNotas_2"
-                                            aria-label="Default select example">
-                                            <option selected>Abrir este menú de selección</option>
-                                            <?php   while($row = $listaAsignaturas->fetch_assoc()) {?>
-                                            <option value="<?php echo $row["Id"]?>"><?php echo $row["asignacion"]?>
-                                            </option>
-                                            <?php }?>
-                                        </select>
-                                        <!--FIN-->
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Cerrar</button>
-                                        <button type="submit" class="btn btn-primary">Registrar</button>
-                                    </div>
+                                    <form method="POST" action="../Modulos/validacionEstudiantes.php">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Módulo de registro de
+                                                estudiantes
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!--INICIO-->
+                                            <label for="datosNotas_1"
+                                                class="form-label"><strong>Semestre</strong></label>
+                                            <select class="form-select" id="registroEstudiante_semestre"
+                                                name="registroEstudiante_semestre" aria-label="Default select example">
+                                                <option selected>Abrir este menú de selección</option>
+                                                <option value="2024-I">2024-I</option>
+                                                <option value="2024-II">2024-II</option>
+                                                <option value="2025-I">2025-I</option>
+                                                <option value="2025-II">2025-II</option>
+                                                <option value="2026-I">2026-I</option>
+                                                <option value="2026-II">2026-II</option>
+                                                <option value="2027-I">2027-I</option>
+                                                <option value="2027-II">2027-II</option>
+                                                <option value="2028-I">2028-I</option>
+                                                <option value="2028-II">2028-II</option>
+                                                <option value="2029-I">2029-I</option>
+                                                <option value="2029-II">2029-II</option>
+                                                <option value="2030-I">2030-I</option>
+                                                <option value="2030-II">2030-II</option>
+                                            </select>
+                                            <br />
+                                            <label for="datosNotas_2"
+                                                class="form-label"><strong>Asignatura</strong></label>
+                                            <select class="form-select" id="registroEstudiante_asignatura"
+                                                name="registroEstudiante_asignatura"
+                                                aria-label="Default select example">
+                                                <option selected>Abrir este menú de selección</option>
+                                                <?php   while($row = $listaAsignaturas->fetch_assoc()) {?>
+                                                <option value="<?php echo $row["Id"]?>"><?php echo $row["asignacion"]?>
+                                                </option>
+                                                <?php }?>
+                                            </select>
+                                            <!--FIN-->
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary">Registrar</button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -143,8 +148,8 @@ $listaAsignaturas1=$con->lista_asignaturas();
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Registro de Asistencia</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content.</p>
+                        <p class="card-text">Módulo para registrar la asistencia de los estudiantes durante el semestre
+                            académico.</p>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#registrarAsistencia">
@@ -155,21 +160,66 @@ $listaAsignaturas1=$con->lista_asignaturas();
                         <div class="modal fade" id="registrarAsistencia" tabindex="-1"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
+                                <form method="POST" action="../Modulos/validacionAsistencia.php">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Registro de asistencia</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!--INICIO REGISTRO ASISTENCIA-->
+                                            <label for="registroAsistencia_semestre"
+                                                class="form-label"><strong>Semestre</strong></label>
+                                            <select class="form-select" id="registroAsistencia_semestre"
+                                                name="registroAsistencia_semestre" aria-label="Default select example">
+                                                <option selected>Abrir este menú de selección</option>
+                                                <option value="2024-I">2024-I</option>
+                                                <option value="2024-II">2024-II</option>
+                                                <option value="2025-I">2025-I</option>
+                                                <option value="2025-II">2025-II</option>
+                                                <option value="2026-I">2026-I</option>
+                                                <option value="2026-II">2026-II</option>
+                                                <option value="2027-I">2027-I</option>
+                                                <option value="2027-II">2027-II</option>
+                                                <option value="2028-I">2028-I</option>
+                                                <option value="2028-II">2028-II</option>
+                                                <option value="2029-I">2029-I</option>
+                                                <option value="2029-II">2029-II</option>
+                                                <option value="2030-I">2030-I</option>
+                                                <option value="2030-II">2030-II</option>
+                                            </select>
+                                            <br />
+                                            <label for="registroAsistencia_periodo" class="form-label"><strong>Periodo
+                                                    académico</strong></label>
+                                            <select class="form-select" id="registroAsistencia_periodo"
+                                                name="registroAsistencia_periodo" aria-label="Default select example">
+                                                <option selected>Abrir este menú de selección</option>
+                                                <option value="Primer Tercio">Primer Tercio</option>
+                                                <option value="Segundo Tercio">Segundo Tercio</option>
+                                                <option value="Tercer Tercio">Tercer Tercio</option>
+                                            </select>
+                                            <br />
+                                            <label for="registroAsistencia_asignatura"
+                                                class="form-label"><strong>Asignatura</strong></label>
+                                            <select class="form-select" id="registroAsistencia_asignatura"
+                                                name="registroAsistencia_asignatura"
+                                                aria-label="Default select example">
+                                                <option selected>Abrir este menú de selección</option>
+                                                <?php   while($row = $listaAsignaturas2->fetch_assoc()) {?>
+                                                <option value="<?php echo $row["Id"]?>"><?php echo $row["asignacion"]?>
+                                                </option>
+                                                <?php }?>
+                                            </select>
+                                            <!--FIN REGISTRO ASISTENCIAS-->
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-primary">Enviar</button>
+                                        </div>
                                     </div>
-                                    <div class="modal-body">
-                                        ...
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>

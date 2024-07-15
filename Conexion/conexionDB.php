@@ -146,6 +146,49 @@ class Conexion{
       }
     }
 
+    function registrar_Estudiantes($nombre,$codigo,$programa,$asignatura,$correo,$periodo){
+      $sql = "INSERT INTO `Usuarios`(`nombre`, `codigo`, `programa`, `asignatura`, `correo`, `periodo`) VALUES ('$nombre','$codigo','$programa','$asignatura','$correo','$periodo')";
+      if ($this->$conexion->query($sql) === TRUE) {
+      } else {
+      }
+  }
+
+  function verificar_Registro_Estudiantes($codigo,$correo,$nombre){
+    $sql = "SELECT * FROM `Usuarios` WHERE `codigo`='$codigo' OR `correo`='$correo' OR `nombre`='$nombre'";
+    $result = $this->$conexion->query($sql);
+    if ($result->num_rows > 0) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+  function eliminar_Estudiantes($id){
+    $sql = "DELETE FROM `Usuarios` WHERE `Id`='$id'";
+    if ($this->$conexion->query($sql) === TRUE) {
+    } else {
+    }
+  }
+
+  function actualizar_Estudiantes($id,$nombre,$codigo,$correo,$programa,$periodo,$asignatura){
+    $sql="UPDATE `Usuarios` SET `nombre`='$nombre',`codigo`='$codigo',`programa`='$programa',`asignatura`='$asignatura',`correo`='$correo',`periodo`='$periodo' WHERE `Id`='$id'";
+    if ($this->$conexion->query($sql) === TRUE) {  
+    } else {
+    }
+  }
+
+  function buscar_Estudiantes($nombre,$codigo,$correo){
+    $sql = "SELECT * FROM `Usuarios` WHERE `codigo`='$codigo' OR `correo`='$correo' OR `nombre`='$nombre'";
+    $result = $this->$conexion->query($sql);
+    if ($result->num_rows > 0) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+
+
 }
 
 ?>
