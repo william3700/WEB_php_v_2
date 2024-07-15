@@ -1,5 +1,4 @@
 <?php
-
 include("../Conexion/conexionDB.php");
 session_start();
 $semestre=$_SESSION["periodo"];
@@ -12,7 +11,7 @@ if($_POST){
   $actividad=$_POST["actividad"];
   $id_estudiante=$_POST["id_estudiante"];
   $nota=$_POST["nota"];
-  $periodo='2024-I';
+  $periodo=$_SESSION["periodo"];
   $tercio='Tercer Tercio';
   if(!empty($nota) && strcmp($actividad, "Abrir este menú de selección") !== 0 && strcmp($proceso, "Abrir este menú de selección") !== 0){
     if(strcmp($proceso,"Registrar")==0){
@@ -110,6 +109,7 @@ if($_POST){
                     <th scope="col">Nombre</th>
                     <th scope="col" style="width:50px;text-align: center">Taller 1</th>
                     <th scope="col" style="width:50px;text-align: center">Taller 2</th>
+                    <th scope="col" style="width:50px;text-align: center">Taller 3</th>
                     <th scope="col" style="width:50px;text-align: center">Taller opcional</th>
                     <th scope="col" style="width:50px;text-align: center">Talleres (40%)</th>
                     <th scope="col" style="width:50px;text-align: center">Desempeño (10%)</th>
@@ -126,12 +126,14 @@ if($_POST){
                     <td><?php echo $fE["nombre"]?></td>
                     <?php $T1=$con->notas_Actividades_Estudiantes($fE["Id"],$_SESSION["periodo"],'Tercer Tercio','Taller 1')?>
                     <?php $T2=$con->notas_Actividades_Estudiantes($fE["Id"],$_SESSION["periodo"],'Tercer Tercio','Taller 2')?>
+                    <?php $T3=$con->notas_Actividades_Estudiantes($fE["Id"],$_SESSION["periodo"],'Tercer Tercio','Taller 3')?>
                     <?php $TO=$con->notas_Actividades_Estudiantes($fE["Id"],$_SESSION["periodo"],'Tercer Tercio','Taller opcional')?>
                     <?php $P1=$con->notas_Actividades_Estudiantes($fE["Id"],$_SESSION["periodo"],'Tercer Tercio','Parcial')?>
                     <td style="text-align: center"><?php echo $T1?></td>
                     <td style="text-align: center"><?php echo $T2?></td>
+                    <td style="text-align: center"><?php echo $T3?></td>
                     <td style="text-align: center"><?php echo $TO?></td>
-                    <?php $TP=$con->promedio_Talleres($T1,$T2,0,$TO)?>
+                    <?php $TP=$con->promedio_Talleres_3($T1,$T2,$T3,$TO)?>
                     <td style="text-align: center"><?php echo $TP?></td>
                     <td style="text-align: center"></td>
                     <td style="text-align: center"><?php echo $P1?></td>
@@ -175,6 +177,7 @@ if($_POST){
                                                 <option selected>Abrir este menú de selección</option>
                                                 <option value="Taller 1">Taller 1</option>
                                                 <option value="Taller 2">Taller 2</option>
+                                                <option value="Taller 3">Taller 3</option>
                                                 <option value="Taller opcional">Taller opcional</option>
                                                 <option value="Parcial">Parcial</option>
                                             </select>

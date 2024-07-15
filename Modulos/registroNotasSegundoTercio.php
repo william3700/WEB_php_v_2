@@ -11,7 +11,7 @@ if($_POST){
   $actividad=$_POST["actividad"];
   $id_estudiante=$_POST["id_estudiante"];
   $nota=$_POST["nota"];
-  $periodo=$_SESSION["periodo"];;
+  $periodo=$_SESSION["periodo"];
   $tercio='Segundo Tercio';
   if(!empty($nota) && strcmp($actividad, "Abrir este menú de selección") !== 0 && strcmp($proceso, "Abrir este menú de selección") !== 0){
     if(strcmp($proceso,"Registrar")==0){

@@ -55,6 +55,27 @@ class Conexion{
         }
     }
 
+    function promedio_Talleres_3($t1,$t2,$t3,$to){
+      if(empty($to)){
+        $resultado=round(($t1+$t2+$t3)/3);
+      }else{
+        if($t1==$t2 && $t1==$t3){
+          $resultado=round((max($t1,$to)+$t2+$t3)/3);
+        }else if($t3>$t1 && $t2>$t1 && $to>$t1){
+          $resultado=round(($t3+$t2+$to)/3);
+        }else if($t3>$t2 && $t1>$t2 && $to>$t2){
+          $resultado=round(($t3+$t1+$to)/3);
+        }else if($t1>$t3 && $t2>$t3 && $to>$t3){
+          $resultado=round(($t2+$t1+$to)/3);
+        }else if($t1>$to && $t2>$to && $t3>$to){
+          $resultado=round(($t2+$t1+$t3)/3);
+        }
+      }
+        if(!empty($resultado)){
+            return $resultado;
+        }
+    }
+
     function Definitiva($nt,$nd,$p){
         $resultado=round(0.4*$nt+0.1*$nd+0.5*$p);
         if(!empty($resultado)){
