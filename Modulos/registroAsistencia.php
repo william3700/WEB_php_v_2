@@ -16,6 +16,13 @@ if($_POST["marcarAsistencia"]){
     $con->marcar_Asistencia($id_estudiante,$hoy,$_SESSION["registroAsistencia_periodo"],'Falla',$hora,$_SESSION["registroAsistencia_semestre"]);
     header("Location: ../Modulos/registroAsistencia.php");
 }
+if($_POST["cambiarAsistenciaFalla"]){
+    $d1=$_POST["cambiarAsistenciaFalla"];
+    $con->actualizar_Asistencia($d1,'Falla');
+}else if($_POST["cambiarAsistenciaOK"]){
+    $d2=$_POST["cambiarAsistenciaOK"];
+    $con->actualizar_Asistencia($d2,'Asistencia');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -108,7 +115,10 @@ if($_POST["marcarAsistencia"]){
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="button" class="btn btn-primary">Sí, confirmo</button>
+                                        <form method="POST">
+                                            <input type="hidden" id="cambiarAsistenciaFalla" name="cambiarAsistenciaFalla" value="<?php echo $row["Id"]?>">
+                                            <button type="submit" class="btn btn-primary">Sí, confirmo</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +148,10 @@ if($_POST["marcarAsistencia"]){
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="button" class="btn btn-primary">Sí, confirmo</button>
+                                            <form method="POST">
+                                            <input type="hidden" id="cambiarAsistenciaOK" name="cambiarAsistenciaOK" value="<?php echo $row["Id"]?>">
+                                            <button type="submit" class="btn btn-primary">Sí, confirmo</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

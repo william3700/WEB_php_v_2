@@ -210,7 +210,12 @@ class Conexion{
     }
   }
 
-
+  function actualizar_Asistencia($id,$estado){
+    $sql = "UPDATE `Asistencia` SET `estado`='$estado' WHERE `Id_estudiante`='$id'";
+    if ($this->$conexion->query($sql) === TRUE) {
+    } else {
+    }
+  }
 
 
 }
