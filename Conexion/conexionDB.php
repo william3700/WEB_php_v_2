@@ -187,7 +187,12 @@ class Conexion{
     }
   }
 
-
+  function marcar_Asistencia($id_estudiante,$fecha,$periodo,$etapa,$hora,$semestre){
+    $sql="INSERT INTO `Asistencia`(`Id_estudiante`, `fecha`, `periodo`, `estado`, `hora`,`semestre`) VALUES ('$id_estudiante','$fecha','$periodo','$etapa','$hora','$semestre')";
+    if ($this->$conexion->query($sql) === TRUE) {
+    } else {
+    }
+  }
 
 }
 
