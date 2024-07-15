@@ -33,7 +33,23 @@ class Conexion{
     }
 
     function promedio_Talleres($t1,$t2,$t3,$to){
+      if(empty($to)){
         $resultado=round(($t1+$t2)/2);
+      }else{
+        if($t1==$t2){
+          $resultado=round((max($t1,$to)+$t2)/2);
+        }else if($t1>$to && $to>$t2){
+          $resultado=round(($t1+$to)/2);
+        }else if($t1<$to && $to<$t2){
+          $resultado=round(($t2+$to)/2);
+        }else if($t1<$to && $t2<$to && $t1<$t2){
+          $resultado=round(($t2+$to)/2);
+        }else if($t1<$to && $t2<$to && $t2<$t1){
+          $resultado=round(($t1+$to)/2);
+        }else if($t1>$to && $t2>$to){
+          $resultado=round(($t1+$t2)/2);
+        }
+      }
         if(!empty($resultado)){
             return $resultado;
         }

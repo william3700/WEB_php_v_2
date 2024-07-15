@@ -1,5 +1,4 @@
 <?php
-
 include("../Conexion/conexionDB.php");
 session_start();
 $semestre=$_SESSION["periodo"];
@@ -12,7 +11,7 @@ if($_POST){
   $actividad=$_POST["actividad"];
   $id_estudiante=$_POST["id_estudiante"];
   $nota=$_POST["nota"];
-  $periodo='2024-I';
+  $periodo=$_SESSION["periodo"];;
   $tercio='Segundo Tercio';
   if(!empty($nota) && strcmp($actividad, "Abrir este menú de selección") !== 0 && strcmp($proceso, "Abrir este menú de selección") !== 0){
     if(strcmp($proceso,"Registrar")==0){
