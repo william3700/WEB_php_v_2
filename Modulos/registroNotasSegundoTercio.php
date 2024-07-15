@@ -132,9 +132,12 @@ if($_POST){
                     <td style="text-align: center"><?php echo $TO?></td>
                     <?php $TP=$con->promedio_Talleres($T1,$T2,0,$TO)?>
                     <td style="text-align: center"><?php echo $TP?></td>
-                    <td style="text-align: center"></td>
+                    <?php $cantidad_Clases=$con->contar_clases($fE["Id"],"Segundo Tercio");?>
+                    <?php $cantidad_Asistencia=$con->contar_Asistencia($fE["Id"],"Segundo Tercio");?>
+                    <?php $notaAsistencia=$con->calificar_Asistencia($cantidad_Clases,$cantidad_Asistencia)?>
+                    <td style="text-align: center"><?php echo $notaAsistencia?></td>
                     <td style="text-align: center"><?php echo $P1?></td>
-                    <?php $Def=$con->Definitiva($TP,0,$P1)?>
+                    <?php $Def=$con->Definitiva($TP,$notaAsistencia,$P1)?>
                     <td style="background-color: rgb(245, 183, 177);text-align: center;"><?php echo $Def ?></td>
                     <td>
                         <!--INCIO BOTÓN MODAL RGISTRO DE NOTAS-->

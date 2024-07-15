@@ -231,8 +231,8 @@ class Conexion{
     }
   }
 
-  function verificar_Asistencia($id,$periodo){
-    $sql="SELECT * FROM `Asistencia` WHERE `Id_estudiante`='$id' AND `periodo`='$periodo'";
+  function verificar_Asistencia($id,$periodo,$fecha){
+    $sql="SELECT * FROM `Asistencia` WHERE `Id_estudiante`='$id' AND `periodo`='$periodo' AND `fecha`='$fecha'";
     $result = $this->$conexion->query($sql);
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
@@ -253,6 +253,40 @@ class Conexion{
     } else {
     }
   }
+
+  function contar_Asistencia($id,$periodo){
+     $sql = "SELECT * FROM `Asistencia` WHERE `Id_estudiante`='$id' AND `periodo`='$periodo' AND `estado`='Asistencia'";
+     $result = $this->$conexion->query($sql);
+     $contador=0;
+     if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $contador+=1;
+      }
+      return $contador;
+    } else {
+      return 0;
+    }
+  } 
+
+  function contar_clases($id,$periodo){
+      $sql = "SELECT * FROM `Asistencia` WHERE `Id_estudiante`='$id' AND `periodo`='$periodo'";
+      $result = $this->$conexion->query($sql);
+      $contador=0;
+      if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $contador+=1;
+      }
+      return $contador;
+    } else {
+    }
+  } 
+
+  function calificar_Asistencia($Nclases,$Nasistencia){
+    if(!empty($Nclases) && !empty($Nasistencia)){
+      return (($Nasistencia/$Nclases)*50);
+    }
+  }
+
 
 
 }

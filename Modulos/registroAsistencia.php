@@ -91,7 +91,7 @@ if($_POST["cambiarAsistenciaFalla"]){
                     <td><?php echo $hoy?></td>
                     <!--INICIO BOTONES DE OPCIONES-->
                     <?php $ea2=$row["Id"]?>
-                    <?php $ea1=$con->verificar_Asistencia($ea2,$_SESSION["registroAsistencia_periodo"])?>
+                    <?php $ea1=$con->verificar_Asistencia($ea2,$_SESSION["registroAsistencia_periodo"],$hoy)?>
                     <?php if($ea1==1){?>
                     <td>
                         <!--INICIO BOTÓN ASISTENCIA-->
