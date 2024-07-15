@@ -83,6 +83,69 @@ if($_POST["marcarAsistencia"]){
                     <td><?php echo $row["nombre"]?></td>
                     <td><?php echo $hoy?></td>
                     <!--INICIO BOTONES DE OPCIONES-->
+                    <?php $ea2=$row["Id"]?>
+                    <?php $ea1=$con->verificar_Asistencia($ea2,$_SESSION["registroAsistencia_periodo"])?>
+                    <?php if($ea1==1){?>
+                    <td>
+                        <!--INICIO BOTÓN ASISTENCIA-->
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#exampleModalAcAs<?php echo $row["Id"]?>">
+                            Asistencia
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalAcAs<?php echo $row["Id"]?>" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"><?php echo $row["nombre"]?></h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Desea actualiza la asistencia ?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="btn btn-primary">Sí, confirmo</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--FIN BOTÓN ASISTENCIA-->
+                    </td>
+                    <?php }else if($ea1==2){?>
+                    <td>
+                        <!--INICIO BOTÓN FALLA-->
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#exampleModalAcFa<?php echo $row["Id"]?>">
+                            Falla
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalAcFa<?php echo $row["Id"]?>" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"><?php echo $row["nombre"]?></h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Desea actualiza la asistencia ?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="btn btn-primary">Sí, confirmo</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--FIN BOTÓN FALLA-->
+                    </td>
+                    <?php }else{?>
                     <td>
                         <!--INICIO ASISTENCIA-->
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -150,6 +213,8 @@ if($_POST["marcarAsistencia"]){
                         </div>
                         <!--FIN FALLA-->
                     </td>
+                    <?php }?>
+
                     <!--FIN BOTONES DE OPCIONES-->
                 </tr>
                 <?php $contador+=1?>

@@ -194,6 +194,25 @@ class Conexion{
     }
   }
 
+  function verificar_Asistencia($id,$periodo){
+    $sql="SELECT * FROM `Asistencia` WHERE `Id_estudiante`='$id' AND `periodo`='$periodo'";
+    $result = $this->$conexion->query($sql);
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        if(strcmp($row["estado"], "Asistencia") == 0){
+            return 1;
+        }else if(strcmp($row["estado"], "Falla") == 0){
+            return 2;
+        }
+      }
+    } else {
+      return 0;
+    }
+  }
+
+
+
+
 }
 
 ?>
