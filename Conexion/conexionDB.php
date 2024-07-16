@@ -287,7 +287,11 @@ class Conexion{
     }
   }
 
-
+  function reporte_Asistencia($id,$periodo,$semestre){
+    $sql = "SELECT * FROM `Asistencia` WHERE `Id_estudiante`='$id' AND `periodo`='$periodo' AND `semestre`='$semestre'";
+    $result = $this->$conexion->query($sql);
+    return $result;
+  }
 
 }
 
