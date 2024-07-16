@@ -293,6 +293,19 @@ class Conexion{
     return $result;
   }
 
+  function reporteNotas($id,$tercio,$actividad,$periodo){
+      $sql="SELECT * FROM `Notas` WHERE `Id_estudiante`='$id' AND `periodo`='$periodo' AND `actividad`='$actividad' AND `tercio`='$tercio'";
+      $result = $this->$conexion->query($sql);
+      if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+          return $row["nota"];
+        }
+      } else {
+      }
+  }
+
+
+
 }
 
 ?>
