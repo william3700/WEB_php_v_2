@@ -97,6 +97,7 @@
                         </div>
                         <?php $nt1_3=$con->reporteNotas($row["Id"],'Tercer Tercio','Taller 1',$enviarReporteSemestre)?>
                         <?php $nt2_3=$con->reporteNotas($row["Id"],'Tercer Tercio','Taller 2',$enviarReporteSemestre)?>
+                        <?php $nt3_3=$con->reporteNotas($row["Id"],'Tercer Tercio','Taller 3',$enviarReporteSemestre)?>
                         <?php $nto_3=$con->reporteNotas($row["Id"],'Tercer Tercio','Taller opcional',$enviarReporteSemestre)?>
                         <?php $np_3=$con->reporteNotas($row["Id"],'Tercer Tercio','Parcial',$enviarReporteSemestre)?>
                         <?php $cantidad_Clases_3=$con->contar_clases($row["Id"],"Tercer Tercio");?>
