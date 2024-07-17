@@ -42,25 +42,23 @@ if($_POST){
         </div>
     </nav>
     <!--FIN ENCABEZADO-->
-    <p>inicio</p>
-
 
     <!--INICIO CANVAS LOGIN-->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel"><strong>Sistema de gestión</strong></h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
             <div>
-                Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images,
-                lists, etc.
+                Este formulario permite el ingreso al sistema de gestión.
             </div>
-            <br/>
+            <br />
             <form method="POST" action="Modulos/validacion.php">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Usuario</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" name="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="email" class="form-control" id="exampleInputEmail1" name="exampleInputEmail1"
+                        aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Contraseña</label>
@@ -71,6 +69,48 @@ if($_POST){
         </div>
     </div>
     <!--FIN CANVAS LOGIN-->
+    <br />
+    <div class="container">
+        <div class="card" style="background-image: url('imagenes/gestion.png');">
+            <div class="card-body">
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <div class="col">
+                    </div>
+                    <div class="col">
+                        <div class="card border-dark">
+                            <div class="card-body">
+                                <h5 class="card-title">Login</h5>
+                                <br/>
+                                <form method="POST" action="Modulos/validacionGestionPersonal.php">
+                                    <div class="mb-3">
+                                        <label for="usuarioGestion" class="form-label">Usuario</label>
+                                        <input type="email" class="form-control" id="usuarioGestion" name="usuarioGestion"
+                                            aria-describedby="emailHelp">
+                                    </div>
+                                    <br/>
+                                    <div class="mb-3">
+                                        <label for="correoGestion" class="form-label">Contraseña</label>
+                                        <input type="password" class="form-control" id="correoGestion" name="correoGestion"> 
+                                    </div>
+                                    <br/>
+                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="container">
+        <div class="card text-center text-white bg-secondary">
+            <p>Sistema de gestión de información </p>
+            <p>2024</p>
+        </div>
+    </div>
+
+
 </body>
 
 </html>
