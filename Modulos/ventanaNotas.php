@@ -28,7 +28,7 @@
                         <?php $np_1=$con->reporteNotas($row["Id"],'Primer Tercio','Parcial',$enviarReporteSemestre)?>
                         <?php $cantidad_Clases_1=$con->contar_clases($row["Id"],"Primer Tercio");?>
                         <?php $cantidad_Asistencia_1=$con->contar_Asistencia($row["Id"],"Primer Tercio");?>
-                        <?php $notaAsistencia_1=$con->calificar_Asistencia($cantidad_Clases_1,$cantidad_Asistencia_1)?>
+                        <?php $notaAsistencia_1=round($con->calificar_Asistencia($cantidad_Clases_1,$cantidad_Asistencia_1))?>
                         <ol type="I">
                             <li>
                                 <p>Nota taller 1 : <?php echo $nt1_1?></p>
@@ -65,7 +65,7 @@
                         <?php $np_2=$con->reporteNotas($row["Id"],'Segundo Tercio','Parcial',$enviarReporteSemestre)?>
                         <?php $cantidad_Clases_2=$con->contar_clases($row["Id"],"Segundo Tercio");?>
                         <?php $cantidad_Asistencia_2=$con->contar_Asistencia($row["Id"],"Segundo Tercio");?>
-                        <?php $notaAsistencia_2=$con->calificar_Asistencia($cantidad_Clases_2,$cantidad_Asistencia_2)?>
+                        <?php $notaAsistencia_2=round($con->calificar_Asistencia($cantidad_Clases_2,$cantidad_Asistencia_2))?>
                         <ol type="I">
                             <li>
                                 <p>Nota taller 1 : <?php echo $nt1_2?></p>
@@ -102,7 +102,7 @@
                         <?php $np_3=$con->reporteNotas($row["Id"],'Tercer Tercio','Parcial',$enviarReporteSemestre)?>
                         <?php $cantidad_Clases_3=$con->contar_clases($row["Id"],"Tercer Tercio");?>
                         <?php $cantidad_Asistencia_3=$con->contar_Asistencia($row["Id"],"Tercer Tercio");?>
-                        <?php $notaAsistencia_3=$con->calificar_Asistencia($cantidad_Clases_3,$cantidad_Asistencia_3)?>
+                        <?php $notaAsistencia_3=round($con->calificar_Asistencia($cantidad_Clases_3,$cantidad_Asistencia_3))?>
                         <ol type="I">
                             <li>
                                 <p>Nota taller 1 : <?php echo $nt1_3?></p>
