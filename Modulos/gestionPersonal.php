@@ -2,7 +2,9 @@
 include("../Conexion/conexionDB.php");
 $con=new Conexion();
 $listaProveedores=$con->lista_proveedores();
-
+$lista_categorias=$con->lista_categorias();
+$listaProductos=$con->lista_productos();
+$lista_Usuarios_gestion=$con->lista_Usuarios_gestion();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,52 +54,10 @@ $listaProveedores=$con->lista_proveedores();
             <a class="btn btn-primary" href="../gestionPersonal/proveedores.php" role="button">+ Agregar Proveedor</a>
             <!--FIN BOTÓN AGREGAR PROVEEDORES-->
             <!--INICIO BOTÓN AGREGAR CATEGORIA-->
-            <button type="button" class="btn btn-success me-md-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                + Agregar Categoria
-            </button>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Módulo para agregar Categorias</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            ...
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-primary">Guardar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <a class="btn btn-success" href="../gestionPersonal/categoria.php" role="button">+ Agregar Categoria</a>
             <!--FIN BOTÓN AGREGAR CATEGORIA-->
             <!--INICIO BOTÓN AGREGAR PRODUCTO-->
-            <button type="button" class="btn btn-danger me-md-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                + Agregar Producto
-            </button>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Módulo para agregar Producto</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            ...
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-primary">Guardar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <a class="btn btn-danger" href="../gestionPersonal/productos.php" role="button">+ Agregar Producto</a>
             <!--FIN BOTÓN AGREGAR PRODUCTO-->
             <!--INICIO BOTÓN AGREGAR MARCA-->
             <button type="button" class="btn btn-secondary me-md-2" data-bs-toggle="modal"
@@ -125,28 +85,7 @@ $listaProveedores=$con->lista_proveedores();
             </div>
             <!--FIN BOTÓN AGREGAR MARCA-->
             <!--INICIO BOTÓN AGREGAR USUARIO-->
-            <button type="button" class="btn btn-warning me-md-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                + Agregar Usuario
-            </button>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Módulo para agregar Usuario</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            ...
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-primary">Guardar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <a class="btn btn-warning" href="../gestionPersonal/usuarios.php" role="button">+ Agregar Usuarios</a>
             <!--FIN BOTÓN AGREGAR USUARIO-->
         </div>
     </div>
@@ -159,9 +98,9 @@ $listaProveedores=$con->lista_proveedores();
                         <label for="validationCustom01" class="form-label"><strong>Seleccionar producto</strong></label>
                         <select class="form-select" aria-label="Default select example">
                             <option selected>Abrir este menú de selección</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <?php while($rowPr = $listaProductos->fetch_assoc()) {?>
+                            <option value="<?php echo $rowPr["Id"]?>"><?php echo $rowPr["nombre"]?></option>
+                            <?php }?>
                         </select>
                     </div>
                     <div class="col-md-4">
@@ -175,6 +114,23 @@ $listaProveedores=$con->lista_proveedores();
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
                         </select>
                     </div>
                     <div class="col-md-6">
@@ -192,18 +148,18 @@ $listaProveedores=$con->lista_proveedores();
                                 categoria</strong></label>
                         <select class="form-select" aria-label="Default select example">
                             <option selected>Abrir este menú de selección</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <?php while($rowC = $lista_categorias->fetch_assoc()) {?>
+                            <option value="<?php echo $rowC["Id"]?>"><?php echo $rowC["nombre"]?></option>
+                            <?php }?>
                         </select>
                     </div>
                     <div class="col-md-3">
                         <label for="validationCustom05" class="form-label"><strong>Seleccionar usuario</strong></label>
                         <select class="form-select" aria-label="Default select example">
-                            <option selected>Abrir este menú de selección</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <option selected>Abrir este menú de selección</option>
+                        <?php while($rowUsu = $lista_Usuarios_gestion->fetch_assoc()) {?>
+                            <option value="<?php echo $rowUsu["Id"]?>"><?php echo $rowUsu["nombre"]?></option>
+                            <?php }?>
                         </select>
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">

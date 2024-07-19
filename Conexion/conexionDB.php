@@ -334,9 +334,86 @@ class Conexion{
     }
   }
 
+  function crear_Categorias($nombre){
+    $sql = "INSERT INTO `Categorias`(`nombre`) VALUES ('$nombre')";
+    if ($this->$conexion->query($sql) === TRUE) {
+    } else {
+    }
+  }
 
+  function lista_categorias(){
+    $sql="SELECT * FROM `Categorias`";
+    $result = $this->$conexion->query($sql);
+    return $result;
+  }
 
+  function eliminar_categorias($id){
+    $sql = "DELETE FROM `Categorias` WHERE `Id`='$id'";
+    if ($this->$conexion->query($sql) === TRUE) {
+    } else {
+    }
+  }
 
+  function actualizar_categoria($id,$nombre){
+    $sql = "UPDATE `Categorias` SET `nombre`='$nombre' WHERE `Id`='$id'";
+    if ($this->$conexion->query($sql) === TRUE) {
+    } else {
+    }
+  }
+
+  function crear_Productos($nombre){
+    $sql = "INSERT INTO `Productos`(`nombre`) VALUES ('$nombre')";
+    if ($this->$conexion->query($sql) === TRUE) {
+    } else {
+    }
+  }
+
+  function lista_productos(){
+    $sql="SELECT * FROM `Productos`";
+    $result = $this->$conexion->query($sql);
+    return $result;
+  }
+
+  function eliminar_productos($id){
+    $sql = "DELETE FROM `Productos` WHERE `Id`='$id'";
+    if ($this->$conexion->query($sql) === TRUE) {
+    } else {
+    }
+  }
+
+  function actualizar_productos($id,$nombre){
+    $sql = "UPDATE `Productos` SET `nombre`='$nombre' WHERE `Id`='$id'";
+    if ($this->$conexion->query($sql) === TRUE) {
+    } else {
+    }
+  }
+
+  function crear_Usuarios_gestion($nombre){
+    $sql = "INSERT INTO `Usuarios_gestion`(`nombre`) VALUES ('$nombre')";
+    if ($this->$conexion->query($sql) === TRUE) {
+    } else {
+    }
+  }
+
+  function lista_Usuarios_gestion(){
+    $sql="SELECT * FROM `Usuarios_gestion`";
+    $result = $this->$conexion->query($sql);
+    return $result;
+  }
+
+  function eliminar_Usuarios_gestion($id){
+    $sql = "DELETE FROM `Usuarios_gestion` WHERE `Id`='$id'";
+    if ($this->$conexion->query($sql) === TRUE) {
+    } else {
+    }
+  }
+
+  function actualizar_Usuarios_gestion($id,$nombre){
+    $sql = "UPDATE `Usuarios_gestion` SET `nombre`='$nombre' WHERE `Id`='$id'";
+    if ($this->$conexion->query($sql) === TRUE) {
+    } else {
+    }
+  }
 
 
 
