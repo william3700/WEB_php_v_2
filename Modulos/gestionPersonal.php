@@ -1,3 +1,9 @@
+<?php
+include("../Conexion/conexionDB.php");
+$con=new Conexion();
+$listaProveedores=$con->lista_proveedores();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,28 +49,7 @@
     <div class="container">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <!--INICIO BOTON AGREGAR PROVEEDORES-->
-            <button type="button" class="btn btn-primary me-md-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                + Agregar Proveedor
-            </button>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Módulo para agregar Proveedor</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            ...
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-primary">Guardar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <a class="btn btn-primary" href="../gestionPersonal/proveedores.php" role="button">+ Agregar Proveedor</a>
             <!--FIN BOTÓN AGREGAR PROVEEDORES-->
             <!--INICIO BOTÓN AGREGAR CATEGORIA-->
             <button type="button" class="btn btn-success me-md-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -140,8 +125,7 @@
             </div>
             <!--FIN BOTÓN AGREGAR MARCA-->
             <!--INICIO BOTÓN AGREGAR USUARIO-->
-            <button type="button" class="btn btn-warning me-md-2" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
+            <button type="button" class="btn btn-warning me-md-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 + Agregar Usuario
             </button>
             <!-- Modal -->
@@ -198,9 +182,9 @@
                                 proveedor</strong></label>
                         <select class="form-select" aria-label="Default select example">
                             <option selected>Abrir este menú de selección</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <?php while($rowP = $listaProveedores->fetch_assoc()) {?>
+                            <option value="<?php echo $rowP["Id"]?>"><?php echo $rowP["referencia"]?></option>
+                            <?php }?>
                         </select>
                     </div>
                     <div class="col-md-3">

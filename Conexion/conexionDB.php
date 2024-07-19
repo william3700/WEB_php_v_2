@@ -305,6 +305,40 @@ class Conexion{
   }
 
 
+  function crear_Proveedor($nombre,$direccion){
+    $referencia=$nombre."  ".$direccion;
+    $sql = "INSERT INTO `Proveedores`(`nombre`, `direccion`, `referencia`) VALUES ('$nombre','$direccion','$referencia')";
+    if ($this->$conexion->query($sql) === TRUE) {
+    } else {
+    }
+  }
+
+  function lista_proveedores(){
+    $sql="SELECT * FROM `Proveedores`";
+    $result = $this->$conexion->query($sql);
+    return $result;
+  }
+
+  function eliminar_proveedores($id){
+    $sql = "DELETE FROM `Proveedores` WHERE `Id`='$id'";
+    if ($this->$conexion->query($sql) === TRUE) {
+    } else {
+    }
+  }
+
+  function actualizar_proveedor($id,$nombre,$direccion){
+    $referencia=$nombre."  ".$direccion;
+    $sql = "UPDATE `Proveedores` SET `nombre`='$nombre',`direccion`='$direccion',`referencia`='$referencia' WHERE `Id`='$id'";
+    if ($this->$conexion->query($sql) === TRUE) {
+    } else {
+    }
+  }
+
+
+
+
+
+
 
 }
 
