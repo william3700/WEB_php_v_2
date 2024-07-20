@@ -89,8 +89,8 @@ if($_POST){
                                     </div>
                                     <br/>
                                     <div class="mb-3">
-                                        <label for="correoGestion" class="form-label">Contraseña</label>
-                                        <input type="password" class="form-control" id="correoGestion" name="correoGestion"> 
+                                        <label for="claveGestion" class="form-label">Contraseña</label>
+                                        <input type="password" class="form-control" id="claveGestion" name="claveGestion"> 
                                     </div>
                                     <br/>
                                     <button type="submit" class="btn btn-primary">Enviar</button>

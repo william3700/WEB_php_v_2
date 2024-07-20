@@ -415,6 +415,85 @@ class Conexion{
     }
   }
 
+  function verificar_Login_Gestion($clave,$usuario){
+    $sql="SELECT * FROM `administrador` WHERE `correo`='$usuario' AND `clave`='$clave'";
+    $result = $this->$conexion->query($sql);
+    if ($result->num_rows > 0) {
+      return 1;
+    } else {
+      return 0;
+    }
+}  
+
+
+function mes($mes){
+  switch($mes){
+    case 1:
+        return 'Enero';
+        break;
+    case 2:
+        return 'Febrero';
+        break;
+    case 3:
+        return 'Marzo';
+        break;
+    case 4:
+        return 'Abril';
+        break;
+    case 5:
+        return 'Mayo';
+        break;                  
+    case 6:
+        return 'Junio';
+        break;
+    case 7:
+        return 'Julio';
+        break;        
+  }
+
+}
+
+function registrar_Gasto($producto,$costo,$cantidad,$proveedor,$categoria,$usuario,$fecha,$mes){
+  $sql = "INSERT INTO `Gastos`(`producto`, `costo`, `cantidad`, `proveedor`, `categoria`, `usuario`, `fecha`, `mes`) VALUES ('$producto','$costo','$cantidad','$proveedor','$categoria','$usuario','$fecha','$mes')";
+  if ($this->$conexion->query($sql) === TRUE) {
+  } else {
+  }
+}
+
+function lista_Gastos(){
+  $sql="SELECT * FROM `Gastos`";
+  $result = $this->$conexion->query($sql);
+  return $result;
+}
+
+function suma_gastos_totales(){
+  $sql="SELECT * FROM `Gastos`";
+  $result = $this->$conexion->query($sql);
+  $resultado=0;
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $resultado+=$row["costo"];
+    }
+    return $resultado;
+  } else {
+    return 0;
+  }
+
+}
+
+function lista_productos_nombre($id){
+  $sql="SELECT * FROM `Productos` WHERE `Id`='$id'";
+  $result = $this->$conexion->query($sql);
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      return $row["nombre"];
+    }
+  } else {
+    echo "Producto no encontrado ...";
+  }
+  
+}
+
 
 
 }
