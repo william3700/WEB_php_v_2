@@ -1,6 +1,26 @@
 <?php
 include("../Conexion/conexionDB.php");
 $con=new Conexion();
+$serviciosT = [];
+$mercadoT=[];
+$entretenimientoT=[];
+$gasT=[];
+$aguaT=[];
+$energiaT=[];
+$meses=array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre',
+'Octubre', 'Noviembre', 'Diciembre');
+foreach($meses as $mes){
+    $serviciosT[]= $con->total_servicio_publicos_x_mes(11,$mes);
+    $mercadoT[]= $con->total_mercado_x_mes(3,$mes);
+    $entretenimientoT[]=$con->total_entretenimiento_x_mes(12,$mes);
+    $gasT[]=$con->total_servicio_publico_diferencial_x_mes(26,$mes);
+    $energiaT[]=$con->total_servicio_publico_diferencial_x_mes(25,$mes);
+    $aguaT[]=$con->total_servicio_publico_diferencial_x_mes(22,$mes);
+}
+
+$claroHogar=$con->gasto_total_entretenimiento(16);
+$disneyPlus=$con->gasto_total_entretenimiento(18);
+$streaming= $con->gasto_total_entretenimiento(17);
 
 ?>
 <!DOCTYPE html>
@@ -47,6 +67,7 @@ $con=new Conexion();
     <div class="container">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <a class="btn btn-primary" href="../Modulos/gestionPersonal.php" role="button">+ Registrar Nuevos Gastos</a>
+            <a class="btn btn-success" href="../gestionPersonal/gestionPersonal_general.php" role="button">+ Registro General Gastos</a>
         </div>
     </div>
     <br />
@@ -147,11 +168,10 @@ $con=new Conexion();
         type: 'bar',
         data: {
             labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre',
-                'Octubre', 'Noviembre', 'Diciembre'
-            ],
+                'Octubre', 'Noviembre', 'Diciembre'],
             datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3, 14, 20, 5, 6, 1, 34],
+                label: 'Servicios públicos por mes',
+                data: eval(<?php echo json_encode($serviciosT)?>),
                 borderWidth: 1
             }]
         },
@@ -174,8 +194,8 @@ $con=new Conexion();
                 'Octubre', 'Noviembre', 'Diciembre'
             ],
             datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3, 14, 20, 5, 6, 1, 34],
+                label: 'Mercado por mes',
+                data: eval(<?php echo json_encode($mercadoT)?>),
                 borderWidth: 1
             }]
         },
@@ -195,13 +215,13 @@ $con=new Conexion();
         type: 'doughnut',
         data: {
             labels: [
-                'Red',
-                'Blue',
-                'Yellow'
+                'Claro Hogar + Internet + Telefonia',
+                'Disney plus',
+                'Plataformas de streaming'
             ],
             datasets: [{
-                label: 'My First Dataset',
-                data: [300, 50, 100],
+                label: 'Entretenimiento',
+                data: [eval(<?php echo json_encode($claroHogar)?>), eval(<?php echo json_encode($disneyPlus)?>), eval(<?php echo json_encode($streaming)?>)],
                 backgroundColor: [
                     'rgb(255, 99, 132)',
                     'rgb(54, 162, 235)',
@@ -226,23 +246,37 @@ $con=new Conexion();
         type: 'scatter',
         data: {
             labels: [
-                'January',
-                'February',
-                'March',
-                'April'
+                'Enero',
+                'Febrero',
+                'Marzo',
+                'April',
+                'Mayo',
+                'Junio',
+                'Julio',
+                'Agosto',
+                'Septiembre',
+                'Octubre',
+                'Noviembre',
+                'Diciembre'
             ],
             datasets: [{
                 type: 'line',
-                label: 'Mercado',
-                data: [10, 25, 32, 40],
-                borderColor: 'rgb(255, 99, 132)',
+                label: 'Acueducto y alcantarillado',
+                data: eval(<?php echo json_encode($aguaT)?>),
+                borderColor: 'rgb(52, 152, 219)',
                 backgroundColor: 'rgba(255, 99, 132, 0.2)'
             }, {
                 type: 'line',
-                label: 'Servicios públicos',
-                data: [50, 8, 45, 20],
+                label: 'Energía eléctrica',
+                data: eval(<?php echo json_encode($energiaT)?>),
                 fill: false,
-                borderColor: 'rgb(54, 162, 235)'
+                borderColor: 'rgb(211, 84, 0)'
+            } ,{
+                type: 'line',
+                label: 'Gas',
+                data: eval(<?php echo json_encode($gasT)?>),
+                fill: false,
+                borderColor: 'rgb(34, 153, 84)'
             }]
         },
         options: {
@@ -277,20 +311,20 @@ $con=new Conexion();
             datasets: [{
                 type: 'bar',
                 label: 'Mercado',
-                data: [10, 25, 32, 40,10, 25, 32, 40,10, 25, 32, 40],
+                data: eval(<?php echo json_encode($mercadoT)?>),
                 borderColor: 'rgb(0, 0, 0)',
                 backgroundColor: 'rgba(146, 43, 33)'
             }, {
                 type: 'bar',
                 label: 'Servicios públicos',
-                data: [50, 8, 45, 20,50, 8, 45, 20,50, 8, 45, 20],
+                data: eval(<?php echo json_encode($serviciosT)?>),
                 fill: false,
                 borderColor: 'rgb(0, 0, 0)',
                 backgroundColor: 'rgba(30, 132, 73 )'
             }, {
                 type: 'bar',
                 label: 'Entretenimiento',
-                data: [10, 60, 4, 32,50, 8, 45, 20,10, 60, 4, 32],
+                data: eval(<?php echo json_encode($entretenimientoT)?>),
                 fill: true,
                 borderColor: 'rgb(0, 0, 0)',
                 backgroundColor: 'rgba(211, 84, 0)'

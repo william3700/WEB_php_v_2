@@ -588,7 +588,6 @@ function actualizar_Gastos($id,$producto,$costo,$cantidad,$proveedor,$categoria,
 
 //CONSULTAS PARA EL DASHBOARD
 
-
 function total_servicio_publicos($var){
   $sql = "SELECT * FROM `Gastos` WHERE `categoria`='$var'";
   $result = $this->$conexion->query($sql);
@@ -632,13 +631,81 @@ function total_entretenimiento($var){
 }
 
 
+function total_servicio_publicos_x_mes($var,$mes){
+  $sql = "SELECT * FROM `Gastos` WHERE `categoria`='$var' AND `mes`='$mes'";
+  $result = $this->$conexion->query($sql);
+  $total=0;
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $total+=$row["costo"];
+    }
+  } else {
+    $total=0;
+  }
+  return $total;
+}
+
+function total_mercado_x_mes($var,$mes){
+  $sql = "SELECT * FROM `Gastos` WHERE `categoria`='$var' AND `mes`='$mes'";
+  $result = $this->$conexion->query($sql);
+  $total=0;
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $total+=$row["costo"];
+    }
+  } else {
+    $total=0;
+  }
+  return $total;
+}
+
+function gasto_total_entretenimiento($var){
+  $sql = "SELECT * FROM `Gastos` WHERE `producto`='$var'";
+  $result = $this->$conexion->query($sql);
+  $total=0;
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $total+=$row["costo"];
+    }
+  } else {
+    $total=0;
+  }
+  return $total;
+}
+
+function total_entretenimiento_x_mes($var,$mes){
+  $sql = "SELECT * FROM `Gastos` WHERE `categoria`='$var' AND `mes`='$mes'";
+  $result = $this->$conexion->query($sql);
+  $total=0;
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $total+=$row["costo"];
+    }
+  } else {
+    $total=0;
+  }
+  return $total;
+}
 
 
+function total_servicio_publico_diferencial_x_mes($var,$mes){
+  $sql = "SELECT * FROM `Gastos` WHERE `producto`='$var' AND `mes`='$mes'";
+  $result = $this->$conexion->query($sql);
+  $total=0;
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $total+=$row["costo"];
+    }
+  } else {
+    $total=0;
+  }
+  return $total;
+}
 
-
-
-
-
+function registro_gastos_x_usuario($usuario){
+  $sql = "SELECT * FROM `Gastos` WHERE `usuario`='$usuario'";
+  $result = $this->$conexion->query($sql);
+}
 
 
 
