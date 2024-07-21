@@ -137,7 +137,7 @@ if($_POST){
                     <td style="text-align: center"><?php echo $TP?></td>
                     <?php $cantidad_Clases=$con->contar_clases($fE["Id"],"Tercer Tercio");?>
                     <?php $cantidad_Asistencia=$con->contar_Asistencia($fE["Id"],"Tercer Tercio");?>
-                    <?php $notaAsistencia=$con->calificar_Asistencia($cantidad_Clases,$cantidad_Asistencia)?>
+                    <?php $notaAsistencia=round($con->calificar_Asistencia($cantidad_Clases,$cantidad_Asistencia))?>
                     <td style="text-align: center"><?php echo $notaAsistencia?></td>
                     <td style="text-align: center"><?php echo $P1?></td>
                     <?php $Def=$con->Definitiva($TP,$notaAsistencia,$P1)?>

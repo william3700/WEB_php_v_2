@@ -90,7 +90,7 @@ $con=new Conexion();
             <div class="col">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h5 class="card-title">Detalle servicios públicos.</h5>
+                        <h5 class="card-title">Detalle Servicios Públicos.</h5>
                         <div>
                             <canvas id="myChart" with="100%" height="300%"></canvas>
                         </div>
@@ -100,7 +100,7 @@ $con=new Conexion();
             <div class="col">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h5 class="card-title">Mercado</h5>
+                        <h5 class="card-title">Detalle Mercado</h5>
                         <div>
                             <canvas id="myChart2" with="100%" height="300%"></canvas>
                         </div>
@@ -110,23 +110,32 @@ $con=new Conexion();
             <div class="col">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h5 class="card-title">Entretenimiento</h5>
+                        <h5 class="card-title">Detalle Entretenimiento</h5>
                         <div>
                             <canvas id="myChart3" with="100%" height="300%"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
+        </div>
+        <br />
+        <div class="card border-dark mb-3">
+            <div class="card-body text-dark">
+                <h5 class="card-title">Comparación Gastos Principales</h5>
+                <canvas id="myChart4"></canvas>
             </div>
         </div>
+        <br />
+        <div class="card border-dark mb-3">
+            <div class="card-body text-dark">
+                <h5 class="card-title">Comparación Gastos</h5>
+                <canvas id="myChart5"></canvas>
+            </div>
+        </div>
+
+
+
+
     </div>
     <!--FIN GRÁFICO ESTADÍSTICO-->
 
@@ -156,7 +165,7 @@ $con=new Conexion();
     });
     </script>
 
-<script>
+    <script>
     const ctx2 = document.getElementById('myChart2');
     new Chart(ctx2, {
         type: 'line',
@@ -199,6 +208,92 @@ $con=new Conexion();
                     'rgb(255, 205, 86)'
                 ],
                 hoverOffset: 4
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    </script>
+
+    <script>
+    const ctx4 = document.getElementById('myChart4');
+    new Chart(ctx4, {
+        type: 'scatter',
+        data: {
+            labels: [
+                'January',
+                'February',
+                'March',
+                'April'
+            ],
+            datasets: [{
+                type: 'line',
+                label: 'Mercado',
+                data: [10, 25, 32, 40],
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)'
+            }, {
+                type: 'line',
+                label: 'Servicios públicos',
+                data: [50, 8, 45, 20],
+                fill: false,
+                borderColor: 'rgb(54, 162, 235)'
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    </script>
+
+    <script>
+    const ctx5 = document.getElementById('myChart5');
+    new Chart(ctx5, {
+        type: 'scatter',
+        data: {
+            labels: [
+                'January',
+                'February',
+                'March',
+                'April',
+                'Mayo',
+                'Junio',
+                'Julio',
+                'Agosto',
+                'Septiembre',
+                'Octubre',
+                'Noviembre',
+                'Diciembre'
+            ],
+            datasets: [{
+                type: 'bar',
+                label: 'Mercado',
+                data: [10, 25, 32, 40,10, 25, 32, 40,10, 25, 32, 40],
+                borderColor: 'rgb(0, 0, 0)',
+                backgroundColor: 'rgba(146, 43, 33)'
+            }, {
+                type: 'bar',
+                label: 'Servicios públicos',
+                data: [50, 8, 45, 20,50, 8, 45, 20,50, 8, 45, 20],
+                fill: false,
+                borderColor: 'rgb(0, 0, 0)',
+                backgroundColor: 'rgba(30, 132, 73 )'
+            }, {
+                type: 'bar',
+                label: 'Entretenimiento',
+                data: [10, 60, 4, 32,50, 8, 45, 20,10, 60, 4, 32],
+                fill: true,
+                borderColor: 'rgb(0, 0, 0)',
+                backgroundColor: 'rgba(211, 84, 0)'
             }]
         },
         options: {
