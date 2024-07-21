@@ -491,8 +491,101 @@ function lista_productos_nombre($id){
   } else {
     echo "Producto no encontrado ...";
   }
-  
 }
+
+function lista_proveedor_nombre($id){
+  $sql="SELECT * FROM `Proveedores` WHERE `Id`='$id'";
+  $result = $this->$conexion->query($sql);
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      return $row["referencia"];
+    }
+  } else {
+    echo "Producto no encontrado ...";
+  }
+}
+
+function lista_categoria_nombre($id){
+  $sql="SELECT * FROM `Categorias` WHERE `Id`='$id'";
+  $result = $this->$conexion->query($sql);
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      return $row["nombre"];
+    }
+  } else {
+    echo "Producto no encontrado ...";
+  }
+}
+
+function lista_usuario_gestion_nombre($id){
+  $sql="SELECT * FROM `Usuarios_gestion` WHERE `Id`='$id'";
+  $result = $this->$conexion->query($sql);
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      return $row["nombre"];
+    }
+  } else {
+    echo "Producto no encontrado ...";
+  }
+}
+
+function nombre_Categoria($id){
+  $sql="SELECT * FROM `Categorias` WHERE `Id`='$id'";
+  $result = $this->$conexion->query($sql);
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      return $row["nombre"];
+    }
+  } else {
+    return "Categoria no encontrado ...";
+  }
+}
+
+function nombre_Usuario_Gestion($id){
+  $sql="SELECT * FROM `Usuarios_gestion` WHERE `Id`='$id'";
+  $result = $this->$conexion->query($sql);
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      return $row["nombre"];
+    }
+  } else {
+    return "Categoria no encontrado ...";
+  }
+}
+
+function nombre_Proveedor($id){
+  $sql="SELECT * FROM `Proveedores` WHERE `Id`='$id'";
+  $result = $this->$conexion->query($sql);
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      return $row["referencia"];
+    }
+  } else {
+    return "Categoria no encontrado ...";
+  }
+}
+
+function eliminar_Registro_Gestion($id){
+  $sql = "DELETE FROM `Gastos` WHERE `Id`='$id'";
+  if ($this->$conexion->query($sql) === TRUE) {
+  } else {
+  }
+}
+
+function lista_Usuarios_Gastos(){
+  $sql="SELECT * FROM `Usuarios_gestion`";
+  $result = $this->$conexion->query($sql);
+  return $result;
+}
+
+function actualizar_Gastos($id,$producto,$costo,$cantidad,$proveedor,$categoria,$usuario){
+  $sql = "UPDATE `Gastos` SET `producto`='$producto',`costo`='$costo',`cantidad`='$cantidad',`proveedor`='$proveedor',`categoria`='$categoria',`usuario`='$usuario' WHERE `Id`='$id'";
+  if ($this->$conexion->query($sql) === TRUE) {
+  } else {
+  }
+}
+
+
 
 
 

@@ -4,10 +4,14 @@ date_default_timezone_set('America/Bogota');
 include("../Conexion/conexionDB.php");
 $con=new Conexion();
 $listaProveedores=$con->lista_proveedores();
+$listaProveedoresA=$con->lista_proveedores();
 $lista_categorias=$con->lista_categorias();
+$lista_categoriasA=$con->lista_categorias();
 $listaProductos=$con->lista_productos();
+$listaProductosA=$con->lista_productos();
 $lista_Usuarios_gestion=$con->lista_Usuarios_gestion();
 $lista_Gastos=$con->lista_Gastos();
+$lista_Usuarios_Gastos=$con->lista_Usuarios_Gastos();
 
 if($_POST["producto"]){
     $producto=$_POST["producto"];
@@ -22,6 +26,25 @@ if($_POST["producto"]){
         $con->registrar_Gasto($producto,$costo,$cantidad,$proveedor,$categoria,$usuario,$fecha,$mes);
         header("Location: ../Modulos/gestionPersonal.php");
     }
+}
+
+if($_POST["id_eliminar"]){
+    $con->eliminar_Registro_Gestion($_POST["id_eliminar"]);
+    header("Location: ../Modulos/gestionPersonal.php");
+}
+
+
+if($_POST["id_actualizar"]){
+   $productoActualizar=$_POST["productoActualizar"];
+   $costoActualizar=$_POST["costoActualizar"];
+   $actualizarCantidad=$_POST["actualizarCantidad"];
+   $proveedorActualizar=$_POST["proveedorActualizar"];
+   $categoriaActualizar=$_POST["categoriaActualizar"];
+   $usuarioActualizar=$_POST["usuarioActualizar"];
+   $id=$_POST["id_actualizar"];
+   $con->actualizar_Gastos($id,$productoActualizar,$costoActualizar, $actualizarCantidad,$proveedorActualizar,$categoriaActualizar,$usuarioActualizar);
+   header("Location: ../Modulos/gestionPersonal.php");
+  //echo $actualizarCantidad;
 }
 
 ?>
@@ -182,7 +205,7 @@ if($_POST["producto"]){
                 <tr>
                     <th scope="col">Id</th>
                     <th scope="col">Producto</th>
-                    <th scope="col">Costo</th>
+                    <th scope="col" style="width:150px">Costo</th>
                     <th scope="col" style="width:150px">Opciones</th>
                 </tr>
             </thead>
@@ -194,9 +217,272 @@ if($_POST["producto"]){
                     <td><?php echo $con->lista_productos_nombre($row["producto"]) ?></td>
                     <td> $ <?php echo $row["costo"] ?></td>
                     <td>
-                        <button type="button" class="btn btn-primary">A</button>
-                        <button type="button" class="btn btn-secondary">E</button>
-                        <button type="button" class="btn btn-success">V</button>
+                        <!--INICIO BOTÓN ACTUALIZAR-->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#registroActualizar<?php echo $row["Id"] ?>">
+                            A
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="registroActualizar<?php echo $row["Id"] ?>" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <form method="POST" action="../Modulos/gestionPersonal.php">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Módulo de actualización</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="card border-dark mb-3">
+                                                <div class="card-body">
+                                                    <label for="productoActualizar"
+                                                        class="form-label"><strong>Seleccionar
+                                                            producto</strong></label>
+                                                    <select class="form-select" id="productoActualizar"
+                                                        name="productoActualizar" aria-label="Default select example">
+                                                        <option value="<?php echo $row["producto"]?>" selected>
+                                                            <?php echo $con->lista_productos_nombre($row["producto"]) ?>
+                                                        </option>
+                                                        <?php while($rowPr = $listaProductosA->fetch_assoc()) {?>
+                                                        <option value="<?php echo $rowPr["Id"]?>">
+                                                            <?php echo $rowPr["nombre"]?></option>
+                                                        <?php }?>
+                                                    </select>
+                                                </div>
+
+                                                <div class="card-body">
+                                                    <label for="costoActualizar"
+                                                        class="form-label"><strong>Costo</strong></label>
+                                                    <input type="text" class="form-control" id="costoActualizar"
+                                                        name="costoActualizar" value="<?php echo $row["costo"]?>">
+                                                </div>
+
+                                                <div class="card-body">
+                                                    <label for="actualizarCantidad" class="form-label"><strong>Ingresar
+                                                            cantidad</strong></label>
+                                                    <select class="form-select" id="actualizarCantidad"
+                                                        name="actualizarCantidad"  aria-label="Default select example">
+                                                        <option selected><?php echo $row["cantidad"]?></option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                        <option value="11">11</option>
+                                                        <option value="12">12</option>
+                                                        <option value="13">13</option>
+                                                        <option value="14">14</option>
+                                                        <option value="15">15</option>
+                                                        <option value="16">16</option>
+                                                        <option value="17">17</option>
+                                                        <option value="18">18</option>
+                                                        <option value="19">19</option>
+                                                        <option value="20">20</option>
+                                                    </select>
+                                                </div>
+
+
+                                                <div class="card-body">
+                                                    <label for="proveedorActualizar"
+                                                        class="form-label"><strong>Seleccionar
+                                                            proveedor</strong></label>
+                                                    <select class="form-select" id="proveedorActualizar"
+                                                        name="proveedorActualizar" aria-label="Default select example">
+                                                        <option value="<?php echo $row["proveedor"]?>" selected>
+                                                            <?php echo $con->lista_proveedor_nombre($row["proveedor"]) ?>
+                                                        </option>
+                                                        <?php while($rowPr1 = $listaProveedoresA->fetch_assoc()) {?>
+                                                        <option value="<?php echo $rowPr1["Id"]?>">
+                                                            <?php echo $rowPr1["nombre"]?></option>
+                                                        <?php }?>
+                                                    </select>
+                                                </div>
+
+                                                <div class="card-body">
+                                                    <label for="categoriaActualizar"
+                                                        class="form-label"><strong>Seleccionar
+                                                            proveedor</strong></label>
+                                                    <select class="form-select" id="categoriaActualizar"
+                                                        name="categoriaActualizar" aria-label="Default select example">
+                                                        <option value="<?php echo $row["categoria"]?>" selected>
+                                                            <?php echo $con->lista_categoria_nombre($row["categoria"]) ?>
+                                                        </option>
+                                                        <?php while($rowPr1 = $lista_categoriasA->fetch_assoc()) {?>
+                                                        <option value="<?php echo $rowPr1["Id"]?>">
+                                                            <?php echo $rowPr1["nombre"]?></option>
+                                                        <?php }?>
+                                                    </select>
+                                                </div>
+
+                                                <div class="card-body">
+                                                    <label for="usuarioActualizar"
+                                                        class="form-label"><strong>Seleccionar
+                                                            usuario</strong></label>
+                                                    <select class="form-select" id="usuarioActualizar"
+                                                        name="usuarioActualizar" aria-label="Default select example">
+                                                        <option value="<?php echo $row["usuario"]?>" selected>
+                                                            <?php echo $con->lista_usuario_gestion_nombre($row["usuario"]) ?>
+                                                        </option>
+                                                        <?php while($rowPr1 = $lista_Usuarios_Gastos->fetch_assoc()) {?>
+                                                        <option value="<?php echo $rowPr1["Id"]?>">
+                                                            <?php echo $rowPr1["nombre"]?></option>
+                                                        <?php }?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cancelar</button>
+                                            <input type="hidden" id="id_actualizar" name="id_actualizar"
+                                                value="<?php echo $row["Id"] ?>">
+                                            <button type="submit" class="btn btn-primary">Guardar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!--FIN BOTÓN ACTUALIZAR-->
+                        <!--INICIO BOTÓN BORRAR-->
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#eliminarRegistroGasto<?php echo $row["Id"]?>">
+                            E
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="eliminarRegistroGasto<?php echo $row["Id"]?>" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">
+                                            <?php echo $con->lista_productos_nombre($row["producto"]) ?></h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Desea eliminar el registro ?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancelar</button>
+                                        <form method="POST" action="../Modulos/gestionPersonal.php">
+                                            <input type="hidden" id="id_eliminar" name="id_eliminar"
+                                                value="<?php echo $row["Id"]?>">
+                                            <button type="submit" class="btn btn-primary">Sí, confirmo</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--FIN BOTÓN BORRAR-->
+                        <!--INICIO BOTÓN VER-->
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#verRegistroGasto<?php echo $row["Id"]?>">
+                            V
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="verRegistroGasto<?php echo $row["Id"]?>" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Reporte detallado</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container">
+                                            <div class="card border-dark mb-3">
+                                                <div class="card-body">
+                                                    <div class="mb-3">
+                                                        <label for="productoVer"
+                                                            class="form-label"><strong>Producto</strong></label>
+                                                        <p><?php echo $con->lista_productos_nombre($row["producto"])?>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-group">
+                                                <div class="card border-dark mb-3 text-dark bg-light text-center">
+                                                    <div class="card-body">
+                                                        <div class="mb-3">
+                                                            <label for="costoVer"
+                                                                class="form-label"><strong>Costo</strong></label>
+                                                            <p> $ <?php echo $row["costo"]?></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card border-dark mb-3 text-center">
+                                                    <div class="card-body">
+                                                        <div class="mb-3">
+                                                            <label for="cantidadVer"
+                                                                class="form-label"><strong>Cantidad</strong></label>
+                                                            <p> <?php echo $row["cantidad"]?></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card border-dark mb-3 text-dark bg-light text-center">
+                                                    <div class="card-body">
+                                                        <div class="mb-3">
+                                                            <label for="fechaVer" class="form-label"><strong>Fecha de
+                                                                    pago</strong></label>
+                                                            <p> <?php echo $row["fecha"]?></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card border-dark mb-3">
+                                                <div class="card-body">
+                                                    <div class="mb-3">
+                                                        <label for="proveedorVer"
+                                                            class="form-label"><strong>Proveedor</strong></label>
+                                                        <p> <?php echo $con->nombre_Proveedor($row["proveedor"])?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="card border-dark mb-3 text-dark bg-light">
+                                                <div class="card-body">
+                                                    <div class="mb-3">
+                                                        <label for="categoriaVer"
+                                                            class="form-label"><strong>Categoria</strong></label>
+                                                        <p> <?php echo $con->nombre_Categoria($row["categoria"])?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="card border-dark mb-3 text-dark bg-light">
+                                                <div class="card-body">
+                                                    <div class="mb-3">
+                                                        <label for="categoriaVer"
+                                                            class="form-label"><strong>Usuario</strong></label>
+                                                        <p> <?php echo $con->nombre_Usuario_Gestion($row["usuario"])?>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--FIN BOTÓN VER-->
                     </td>
                 </tr>
                 <?php $contador+=1?>
