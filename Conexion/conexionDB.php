@@ -586,6 +586,61 @@ function actualizar_Gastos($id,$producto,$costo,$cantidad,$proveedor,$categoria,
 }
 
 
+//CONSULTAS PARA EL DASHBOARD
+
+
+function total_servicio_publicos($var){
+  $sql = "SELECT * FROM `Gastos` WHERE `categoria`='$var'";
+  $result = $this->$conexion->query($sql);
+  $total=0;
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $total+=$row["costo"];
+    }
+  } else {
+    $total=0;
+  }
+  return $total;
+}
+
+function total_mercado($var){
+  $sql = "SELECT * FROM `Gastos` WHERE `categoria`='$var'";
+  $result = $this->$conexion->query($sql);
+  $total=0;
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $total+=$row["costo"];
+    }
+  } else {
+    $total=0;
+  }
+  return $total;
+}
+
+function total_entretenimiento($var){
+  $sql = "SELECT * FROM `Gastos` WHERE `categoria`='$var'";
+  $result = $this->$conexion->query($sql);
+  $total=0;
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $total+=$row["costo"];
+    }
+  } else {
+    $total=0;
+  }
+  return $total;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

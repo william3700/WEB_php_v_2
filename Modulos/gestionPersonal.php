@@ -74,7 +74,7 @@ if($_POST["id_actualizar"]){
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="../index.php">Salir</a>
+                        <a class="nav-link" href="../gestionPersonal/dashboard.php">Regresar</a>
                     </li>
                 </ul>
             </div>
