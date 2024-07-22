@@ -478,7 +478,6 @@ function suma_gastos_totales(){
   } else {
     return 0;
   }
-
 }
 
 function lista_productos_nombre($id){
@@ -540,6 +539,19 @@ function nombre_Categoria($id){
     return "Categoria no encontrado ...";
   }
 }
+
+function nombre_Producto($id){
+  $sql="SELECT * FROM `Productos` WHERE `Id`='$id'";
+  $result = $this->$conexion->query($sql);
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      return $row["nombre"];
+    }
+  } else {
+    return "Categoria no encontrado ...";
+  }
+}
+
 
 function nombre_Usuario_Gestion($id){
   $sql="SELECT * FROM `Usuarios_gestion` WHERE `Id`='$id'";
@@ -705,10 +717,36 @@ function total_servicio_publico_diferencial_x_mes($var,$mes){
 function registro_gastos_x_usuario($usuario){
   $sql = "SELECT * FROM `Gastos` WHERE `usuario`='$usuario'";
   $result = $this->$conexion->query($sql);
+  return $result;
 }
 
+function suma_gastos_x_usuario($usuario,$var){
+  $sql="SELECT * FROM `Gastos` WHERE `usuario`='$usuario' AND `categoria`='$var'";
+  $result = $this->$conexion->query($sql);
+  $resultado=0;
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $resultado+=$row["costo"];
+    }
+    return $resultado;
+  } else {
+    return 0;
+  }
+}
 
-
+function suma_gastos_totales_x_usuario($usuario){
+  $sql="SELECT * FROM `Gastos` WHERE `usuario`='$usuario'";
+  $result = $this->$conexion->query($sql);
+  $resultado=0;
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $resultado+=$row["costo"];
+    }
+    return $resultado;
+  } else {
+    return 0;
+  }
+}
 
 
 }
