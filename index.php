@@ -1,7 +1,5 @@
 <?php
-if($_POST){
-  header("Location: ../Modulos/principal.php");
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,11 +48,11 @@ if($_POST){
                                     Este formulario permite el ingreso al sistema de gestión.
                                 </div>
                                 <br />
-                                <form method="POST" action="Modulos/validacion.php">
+                                <form id="formulario1" method="POST" action="Modulos/validacion.php">
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Usuario</label>
                                         <input type="email" class="form-control" id="exampleInputEmail1"
-                                            name="exampleInputEmail1" aria-describedby="emailHelp">
+                                            name="exampleInputEmail1" placeholder="usuario"  aria-describedby="emailHelp">
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">Contraseña</label>
@@ -84,11 +82,11 @@ if($_POST){
                             <div class="card-body">
                                 <h5 class="card-title">Login</h5>
                                 <br />
-                                <form method="POST" action="Modulos/validacionGestionPersonal.php">
+                                <form id="formulario2" method="POST" action="Modulos/validacionGestionPersonal.php">
                                     <div class="mb-3">
                                         <label for="usuarioGestion" class="form-label">Usuario</label>
                                         <input type="email" class="form-control" id="usuarioGestion"
-                                            name="usuarioGestion" aria-describedby="emailHelp">
+                                            name="usuarioGestion" placeholder="usuario" aria-describedby="emailHelp">
                                     </div>
                                     <br />
                                     <div class="mb-3">
