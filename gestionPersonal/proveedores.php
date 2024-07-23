@@ -1,4 +1,10 @@
 <?php 
+session_start();
+if(!isset($_SESSION["usuarioGestion"]) && !isset($_SESSION["claveGestion"])){
+    header("Location: ../index.php");
+}else{
+
+}
 include("../Conexion/conexionDB.php");
 $con=new Conexion();
 $listaProveedores=$con->lista_proveedores();

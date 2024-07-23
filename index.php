@@ -36,39 +36,42 @@ if($_POST){
                             aria-controls="offcanvasExample">
                             Login
                         </a>
+                        <!--INICIO CANVAS LOGIN-->
+                        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+                            aria-labelledby="offcanvasExampleLabel">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title" id="offcanvasExampleLabel"><strong>Sistema de
+                                        gestión</strong></h5>
+                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <div>
+                                    Este formulario permite el ingreso al sistema de gestión.
+                                </div>
+                                <br />
+                                <form method="POST" action="Modulos/validacion.php">
+                                    <div class="mb-3">
+                                        <label for="exampleInputEmail1" class="form-label">Usuario</label>
+                                        <input type="email" class="form-control" id="exampleInputEmail1"
+                                            name="exampleInputEmail1" aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+                                        <input type="password" class="form-control" id="exampleInputPassword1"
+                                            name="exampleInputPassword1">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Entrar</button>
+                                </form>
+                            </div>
+                        </div>
+                        <!--FIN CANVAS LOGIN-->
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
     <!--FIN ENCABEZADO-->
-
-    <!--INICIO CANVAS LOGIN-->
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasExampleLabel"><strong>Sistema de gestión</strong></h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <div>
-                Este formulario permite el ingreso al sistema de gestión.
-            </div>
-            <br />
-            <form method="POST" action="Modulos/validacion.php">
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Usuario</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" name="exampleInputEmail1"
-                        aria-describedby="emailHelp">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" name="exampleInputPassword1">
-                </div>
-                <button type="submit" class="btn btn-primary">Entrar</button>
-            </form>
-        </div>
-    </div>
-    <!--FIN CANVAS LOGIN-->
     <br />
     <div class="container">
         <div class="card" style="background-image: url('imagenes/gestion.png');">
@@ -80,19 +83,20 @@ if($_POST){
                         <div class="card border-dark">
                             <div class="card-body">
                                 <h5 class="card-title">Login</h5>
-                                <br/>
+                                <br />
                                 <form method="POST" action="Modulos/validacionGestionPersonal.php">
                                     <div class="mb-3">
                                         <label for="usuarioGestion" class="form-label">Usuario</label>
-                                        <input type="email" class="form-control" id="usuarioGestion" name="usuarioGestion"
-                                            aria-describedby="emailHelp">
+                                        <input type="email" class="form-control" id="usuarioGestion"
+                                            name="usuarioGestion" aria-describedby="emailHelp">
                                     </div>
-                                    <br/>
+                                    <br />
                                     <div class="mb-3">
                                         <label for="claveGestion" class="form-label">Contraseña</label>
-                                        <input type="password" class="form-control" id="claveGestion" name="claveGestion"> 
+                                        <input type="password" class="form-control" id="claveGestion"
+                                            name="claveGestion">
                                     </div>
-                                    <br/>
+                                    <br />
                                     <button type="submit" class="btn btn-primary">Enviar</button>
                                 </form>
                             </div>
@@ -102,7 +106,7 @@ if($_POST){
             </div>
         </div>
     </div>
-    <br/>
+    <br />
     <div class="container">
         <div class="card text-center text-white bg-secondary">
             <p>Sistema de gestión de información </p>

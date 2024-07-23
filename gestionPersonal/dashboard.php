@@ -1,4 +1,10 @@
 <?php
+session_start();
+if(!isset($_SESSION["usuarioGestion"]) && !isset($_SESSION["claveGestion"])){
+    header("Location: ../index.php");
+}else{
+
+}
 include("../Conexion/conexionDB.php");
 $con=new Conexion();
 $serviciosT = [];
@@ -49,7 +55,7 @@ $streaming= $con->gasto_total_entretenimiento(17);
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="../index.php">Salir</a>
+                        <a class="nav-link" href="../Modulos/destruirSesion.php">Salir</a>
                     </li>
                 </ul>
             </div>

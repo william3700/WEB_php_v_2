@@ -1,5 +1,11 @@
 <?php
 //echo md5('830085'); 
+session_start();
+if(!isset($_SESSION["usuarioGestion"]) && !isset($_SESSION["claveGestion"])){
+    header("Location: ../index.php");
+}else{
+
+}
 date_default_timezone_set('America/Bogota');
 include("../Conexion/conexionDB.php");
 $con=new Conexion();

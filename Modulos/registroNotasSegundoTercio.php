@@ -1,4 +1,10 @@
 <?php
+session_start();
+if(!isset($_SESSION["claveUsuarioValidacion"]) && !isset($_SESSION["correoUsuarioValidacion"])){
+    header("Location: ../index.php");
+}else{
+
+}
 include("../Conexion/conexionDB.php");
 session_start();
 $semestre=$_SESSION["periodo"];

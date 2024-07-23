@@ -1,4 +1,10 @@
 <?php
+session_start();
+if(!isset($_SESSION["claveUsuarioValidacion"]) && !isset($_SESSION["correoUsuarioValidacion"])){
+    header("Location: ../index.php");
+}else{
+
+}
 include("../Conexion/conexionDB.php");
 session_start();
 date_default_timezone_set('America/Bogota');

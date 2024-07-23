@@ -1,4 +1,10 @@
 <?php
+session_start();
+if(!isset($_SESSION["claveUsuarioValidacion"]) && !isset($_SESSION["correoUsuarioValidacion"])){
+    header("Location: ../index.php");
+}else{
+
+}
 include("../Conexion/conexionDB.php");
 $con=new Conexion();
 $listaAsignaturas=$con->lista_asignaturas();
@@ -42,7 +48,7 @@ $listaAsignaturas3=$con->lista_asignaturas();
                         <a class="nav-link" href="#">Gastos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="../index.php">Salir</a>
+                        <a class="nav-link active" aria-current="page" href="../Modulos/destruirSesion.php">Salir</a>
                     </li>
                 </ul>
             </div>
