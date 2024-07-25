@@ -425,7 +425,6 @@ class Conexion{
     }
 }  
 
-
 function mes($mes){
   switch($mes){
     case 1:
@@ -747,6 +746,24 @@ function suma_gastos_totales_x_usuario($usuario){
     return 0;
   }
 }
+
+//CÓDIGO PARA EL REPORTE DE NOTAS Y ASISTENCIA POR CORREO 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

@@ -387,6 +387,7 @@ $listaAsignaturas3=$con->lista_asignaturas();
                         <h5 class="card-title">Notificaciones</h5>
                         <p class="card-text">En este módulo permite enviar correo de notificación a los estudiantes
                             sobre notas y asistencia.</p>
+                            <a class="btn btn-primary" href="../Modulos/enviarMensajes.php" role="button">Entrar</a>
                     </div>
                 </div>
             </div>
