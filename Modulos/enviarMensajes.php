@@ -1,24 +1,48 @@
 <?php
 include("../Conexion/conexionDB.php");
+date_default_timezone_set('America/Bogota');
+
 $con=new Conexion();
 $listaAsignaturas=$con->lista_asignaturas();
+$registros_enviados=$con->registro_envio_correos_lista();
+
+
 if($_POST){
    $asignatura=$_POST["asignatura"];
    $periodo=$_POST["periodo"];
    $motivo=$_POST["motivo"];
    $etapa=$_POST["etapa"];
-   $listaEstudiantes=$con->lista_Estudiantes($periodo,$asignatura);
-   echo $con->nombre_Asignatura($asignatura)."  ".$periodo."   ".$motivo."   ".$etapa."<br/>";
-   if ($listaEstudiantes->num_rows > 0) {
-    while($row = $listaEstudiantes->fetch_assoc()) {
-      $estadoAsistencia=$con->reporte_Asistencia($row["Id"],$etapa,$periodo);  
-      $rowAsistencia = $estadoAsistencia->fetch_assoc();
-      echo $row["Id"]."    ".$row["nombre"]."    ".$row["correo"]."   ".$rowAsistencia["estado"]."<br/>";
-    }
+       $listaEstudiantes=$con->lista_Estudiantes($periodo,$asignatura);
+        if(strcmp($motivo, "Asistencia") !== 0){
+            echo $con->nombre_Asignatura($asignatura)."  ".$periodo."   ".$motivo."   ".$etapa."<br/>";
+            if ($listaEstudiantes->num_rows > 0) {
+                while($row = $listaEstudiantes->fetch_assoc()) {
+                    $fecha=date("Y-m-d");
+                    $nota_estudiante=$con->reporteNotas($row["Id"],$etapa,$motivo,$periodo);
+                    $con->enviar_Correo_Nota($row["correo"],$row["nombre"],$nota_estudiante);
+                }
+            }
+
+        }else{
+            echo $con->nombre_Asignatura($asignatura)."  ".$periodo."   ".$motivo."   ".$etapa."<br/>";
+            if ($listaEstudiantes->num_rows > 0) {
+                while($row = $listaEstudiantes->fetch_assoc()) {
+                    $fecha=date("Y-m-d");
+                    $estadoAsistencia=$con->reporte_Asistencia_x_estudiante_fecha($row["Id"],$etapa,$periodo,$fecha);  
+                    $rowAsistencia = $estadoAsistencia->fetch_assoc();
+                    $con->enviar_Correo_Asistencia($row["correo"],$row["nombre"],$rowAsistencia["estado"]);
+                }
+            }
+        }
+        $cursoR=$con->nombre_Asignatura($asignatura);
+        $motivoR=$etapa."  ".$motivo;
+        $fechaR=date("Y-m-d");
+        $con->registro_envio_correos($cursoR,$motivoR,$fechaR);     
+        //header("Location: ../Modulos/enviarMensajes.php");   
   } else {
-    echo "No hay registros disponibles ...";
+    $mensaje1= "No hay registros disponibles ...";
   }
-}
+
 
 ?>
 <!DOCTYPE html>
@@ -65,6 +89,7 @@ if($_POST){
             </div>
         </div>
     </div>
+
     <div class="container">
         <div class="card">
             <div class="card-body">
@@ -148,11 +173,14 @@ if($_POST){
                 </tr>
             </thead>
             <tbody>
+                <?php if ($registros_enviados->num_rows > 0) {?>
+                <?php $contador=1?>
+                <?php while($rowre = $registros_enviados->fetch_assoc()) {?>
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                    <th scope="row"><?php echo $contador?></th>
+                    <td><?php echo $rowre["curso"]?></td>
+                    <td><?php echo $rowre["motivo"]?></td>
+                    <td><?php echo $rowre["fecha"]?></td>
                     <td>
                         <!--INICIO VER DETALLES-->
                         <!-- Button trigger modal -->
@@ -184,6 +212,13 @@ if($_POST){
                         <!--FIN VER DETALLES-->
                     </td>
                 </tr>
+                <?php $contador+=1?>
+                <?php }?>
+                <?php }else{?>
+                <tr>
+                    <td colspan="5"><strong><?php echo $mensaje1?></strong></td>
+                </tr>
+                <?php }?>
             </tbody>
         </table>
     </div>

@@ -749,13 +749,34 @@ function suma_gastos_totales_x_usuario($usuario){
 
 //CÓDIGO PARA EL REPORTE DE NOTAS Y ASISTENCIA POR CORREO 
 
+function enviar_Correo_Asistencia($correo,$nombre,$estado){
+      echo $nombre."    ".$correo."    ".$estado."<br/>";
 
+}
 
+function enviar_Correo_Nota($correo,$nombre,$nota){
+  echo $nombre."    ".$correo."    ".$nota."<br/>";
 
+}
 
+function reporte_Asistencia_x_estudiante_fecha($id,$periodo,$semestre,$fecha){
+  $sql = "SELECT * FROM `Asistencia` WHERE `Id_estudiante`='$id' AND `fecha`='$fecha' AND `periodo`='$periodo' AND `semestre`='$semestre'";
+  $result = $this->$conexion->query($sql);
+  return $result;
+}
 
+function registro_envio_correos($curso,$motivo,$fecha){
+  $sql="INSERT INTO `Estado_correos`(`curso`, `motivo`, `fecha`) VALUES ('$curso','$motivo','$fecha')";
+  if ($this->$conexion->query($sql) === TRUE) {
+  } else {
+  }
+}
 
-
+function registro_envio_correos_lista(){
+  $sql="SELECT * FROM `Estado_correos`";
+  $result = $this->$conexion->query($sql);
+  return $result;
+}
 
 
 
