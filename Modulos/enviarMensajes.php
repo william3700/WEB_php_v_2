@@ -1,44 +1,72 @@
 <?php
+session_start();
+if(!isset($_SESSION["claveUsuarioValidacion"]) && !isset($_SESSION["correoUsuarioValidacion"])){
+    header("Location: ../index.php");
+}else{
+
+}
 include("../Conexion/conexionDB.php");
 date_default_timezone_set('America/Bogota');
 
 $con=new Conexion();
 $listaAsignaturas=$con->lista_asignaturas();
 $registros_enviados=$con->registro_envio_correos_lista();
-
+$mensaje1= "No hay registros disponibles ...";
 
 if($_POST){
-   $asignatura=$_POST["asignatura"];
-   $periodo=$_POST["periodo"];
-   $motivo=$_POST["motivo"];
-   $etapa=$_POST["etapa"];
-       $listaEstudiantes=$con->lista_Estudiantes($periodo,$asignatura);
+        $asignatura=$_POST["asignatura"];
+        $periodo=$_POST["periodo"];
+        $motivo=$_POST["motivo"];
+        $etapa=$_POST["etapa"];
+        $cursoR=$con->nombre_Asignatura($asignatura);
+        $motivoR=$etapa."  ".$motivo;
+        $fechaR=date("Y-m-d");
+        $listaEstudiantes=$con->lista_Estudiantes($periodo,$asignatura);
         if(strcmp($motivo, "Asistencia") !== 0){
-            echo $con->nombre_Asignatura($asignatura)."  ".$periodo."   ".$motivo."   ".$etapa."<br/>";
+            //echo $con->nombre_Asignatura($asignatura)."  ".$periodo."   ".$motivo."   ".$etapa."<br/>";
             if ($listaEstudiantes->num_rows > 0) {
                 while($row = $listaEstudiantes->fetch_assoc()) {
                     $fecha=date("Y-m-d");
                     $nota_estudiante=$con->reporteNotas($row["Id"],$etapa,$motivo,$periodo);
-                    $con->enviar_Correo_Nota($row["correo"],$row["nombre"],$nota_estudiante);
-                }
-            }
+                    if($nota_estudiante){
+                        //$con->enviar_Correo_Nota($row["correo"],$row["nombre"],$nota_estudiante);
+                        //INICIO ENVIAR CORREO NOTAS
 
+
+
+                        //FIN ENVIAR CORREO NOTAS
+                    }else{
+                        //$con->enviar_Correo_Nota($row["correo"],$row["nombre"],"No presentó");
+                        //INICIO ENVIAR CORREO NOTAS
+
+
+
+                        //FIN ENVIAR CORREO NOTAS
+                    }
+                }
+                $con->registro_envio_correos($cursoR,$motivoR,$fechaR);     
+                header("Location: ../Modulos/enviarMensajes.php"); 
+            }
         }else{
-            echo $con->nombre_Asignatura($asignatura)."  ".$periodo."   ".$motivo."   ".$etapa."<br/>";
+            //echo $con->nombre_Asignatura($asignatura)."  ".$periodo."   ".$motivo."   ".$etapa."<br/>";
             if ($listaEstudiantes->num_rows > 0) {
                 while($row = $listaEstudiantes->fetch_assoc()) {
                     $fecha=date("Y-m-d");
                     $estadoAsistencia=$con->reporte_Asistencia_x_estudiante_fecha($row["Id"],$etapa,$periodo,$fecha);  
                     $rowAsistencia = $estadoAsistencia->fetch_assoc();
-                    $con->enviar_Correo_Asistencia($row["correo"],$row["nombre"],$rowAsistencia["estado"]);
+                    if($rowAsistencia["estado"]){
+                        //$con->enviar_Correo_Asistencia($row["correo"],$row["nombre"],$rowAsistencia["estado"]);
+                        //INICIO ENVIAR CORREO NOTAS
+
+
+
+                        //FIN ENVIAR CORREO NOTAS
+                    }
                 }
+                $con->registro_envio_correos($cursoR,$motivoR,$fechaR);     
+                header("Location: ../Modulos/enviarMensajes.php"); 
             }
-        }
-        $cursoR=$con->nombre_Asignatura($asignatura);
-        $motivoR=$etapa."  ".$motivo;
-        $fechaR=date("Y-m-d");
-        $con->registro_envio_correos($cursoR,$motivoR,$fechaR);     
-        //header("Location: ../Modulos/enviarMensajes.php");   
+        }  
   } else {
     $mensaje1= "No hay registros disponibles ...";
   }
@@ -169,7 +197,6 @@ if($_POST){
                     <th scope="col">Curso</th>
                     <th scope="col">Motivo</th>
                     <th scope="col">Fecha</th>
-                    <th scope="col">Opción</th>
                 </tr>
             </thead>
             <tbody>
@@ -181,36 +208,6 @@ if($_POST){
                     <td><?php echo $rowre["curso"]?></td>
                     <td><?php echo $rowre["motivo"]?></td>
                     <td><?php echo $rowre["fecha"]?></td>
-                    <td>
-                        <!--INICIO VER DETALLES-->
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            v
-                        </button>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Detalles del envío</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        ...
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Cerrar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--FIN VER DETALLES-->
-                    </td>
                 </tr>
                 <?php $contador+=1?>
                 <?php }?>
