@@ -7,7 +7,13 @@ if(!isset($_SESSION["claveUsuarioValidacion"]) && !isset($_SESSION["correoUsuari
 }
 include("../Conexion/conexionDB.php");
 date_default_timezone_set('America/Bogota');
-
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+require '../Correos/Exception.php';
+require '../Correos/PHPMailer.php';
+require '../Correos/SMTP.php';
+$mail = new PHPMailer(true);
 $con=new Conexion();
 $listaAsignaturas=$con->lista_asignaturas();
 $registros_enviados=$con->registro_envio_correos_lista();
@@ -30,18 +36,86 @@ if($_POST){
                     $nota_estudiante=$con->reporteNotas($row["Id"],$etapa,$motivo,$periodo);
                     if($nota_estudiante){
                         //$con->enviar_Correo_Nota($row["correo"],$row["nombre"],$nota_estudiante);
-                        //INICIO ENVIAR CORREO NOTAS
+//INICIO ENVIAR CORREO NOTAS
+//***************************************************************************
+try {
+    //Server settings
+    $mail->SMTPDebug = 0;                      //Enable verbose debug output
+    $mail->isSMTP();                                            //Send using SMTP
+    $mail->CharSet = 'UTF-8';
+    $mail->Host       = 'gestionadministrativa.org';                     //Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+    $mail->Username   = 'william.suarez-o@gestionadministrativa.org';                     //SMTP username
+    $mail->Password   = 'WSO_2024_SG';                               //SMTP password
+    $mail->SMTPSecure = 'ssl';            //Enable implicit TLS encryption
+    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
+    //Recipients
+    $mail->setFrom('william.suarez-o@gestionadministrativa.org', 'William Suárez Ortiz');
+    $mail->addAddress('wasuarezo30@gmail.com', $row["nombre"]);     //Add a recipient
+   // $mail->addAddress('wasuarezo30@gmail.com');               //Name is optional
+    //$mail->addReplyTo('wasuarezo30@gmail.com', 'Information');
+    $mail->addCC('william.suarez-o@escuelaing.edu.co');
+    //$mail->addBCC('wasuarezo30@outlook.com');
 
+    //Attachments
+    //$mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+    //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
 
-                        //FIN ENVIAR CORREO NOTAS
+    //Content
+    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->Subject = $con->nombre_Asignatura($asignatura).' : '.$motivoR.'   '.date("Y-m-d");
+    $mail->Body    = 'Buenos días '.$row["nombre"].'<br/>'.' La nota '.$motivoR.' es de '.$nota_estudiante;
+    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+    $mail->send();
+    //echo 'Message has been sent';
+} catch (Exception $e) {
+    //echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+}
+//***************************************************************************
+//FIN ENVIAR CORREO NOTAS
                     }else{
                         //$con->enviar_Correo_Nota($row["correo"],$row["nombre"],"No presentó");
                         //INICIO ENVIAR CORREO NOTAS
+//***************************************************************************
+try {
+    //Server settings
+    $mail->SMTPDebug = 0;                      //Enable verbose debug output
+    $mail->isSMTP();                                            //Send using SMTP
+    $mail->CharSet = 'UTF-8';
+    $mail->Host       = 'gestionadministrativa.org';                     //Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+    $mail->Username   = 'william.suarez-o@gestionadministrativa.org';                     //SMTP username
+    $mail->Password   = 'WSO_2024_SG';                               //SMTP password
+    $mail->SMTPSecure = 'ssl';            //Enable implicit TLS encryption
+    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
+    //Recipients
+    $mail->setFrom('william.suarez-o@gestionadministrativa.org', 'William Suárez Ortiz');
+    $mail->addAddress('wasuarezo30@gmail.com', $row["nombre"]);     //Add a recipient
+   // $mail->addAddress('wasuarezo30@gmail.com');               //Name is optional
+    //$mail->addReplyTo('wasuarezo30@gmail.com', 'Information');
+    $mail->addCC('william.suarez-o@escuelaing.edu.co');
+    //$mail->addBCC('wasuarezo30@outlook.com');
 
+    //Attachments
+    //$mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+    //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
 
-                        //FIN ENVIAR CORREO NOTAS
+    //Content
+    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->Subject = $con->nombre_Asignatura($asignatura).' : '.$motivoR.'   '.date("Y-m-d");
+    $mail->Body    = 'Buenos días '.$row["nombre"].'<br/>'.' No presentó el '.$motivoR;
+    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+    $mail->send();
+    //echo 'Message has been sent';
+} catch (Exception $e) {
+    //echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+}
+//***************************************************************************
+//FIN ENVIAR CORREO NOTAS
                     }
                 }
                 $con->registro_envio_correos($cursoR,$motivoR,$fechaR);     
@@ -55,12 +129,46 @@ if($_POST){
                     $estadoAsistencia=$con->reporte_Asistencia_x_estudiante_fecha($row["Id"],$etapa,$periodo,$fecha);  
                     $rowAsistencia = $estadoAsistencia->fetch_assoc();
                     if($rowAsistencia["estado"]){
-                        //$con->enviar_Correo_Asistencia($row["correo"],$row["nombre"],$rowAsistencia["estado"]);
-                        //INICIO ENVIAR CORREO NOTAS
+//$con->enviar_Correo_Asistencia($row["correo"],$row["nombre"],$rowAsistencia["estado"]);
+//INICIO ENVIAR CORREO NOTAS
+//***************************************************************************
+try {
+    //Server settings
+    $mail->SMTPDebug = 0;                      //Enable verbose debug output
+    $mail->isSMTP();                                            //Send using SMTP
+    $mail->CharSet = 'UTF-8';
+    $mail->Host       = 'gestionadministrativa.org';                     //Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+    $mail->Username   = 'william.suarez-o@gestionadministrativa.org';                     //SMTP username
+    $mail->Password   = 'WSO_2024_SG';                               //SMTP password
+    $mail->SMTPSecure = 'ssl';            //Enable implicit TLS encryption
+    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
+    //Recipients
+    $mail->setFrom('william.suarez-o@gestionadministrativa.org', 'William Suárez Ortiz');
+    $mail->addAddress('wasuarezo30@gmail.com', $row["nombre"]);     //Add a recipient
+   // $mail->addAddress('wasuarezo30@gmail.com');               //Name is optional
+    //$mail->addReplyTo('wasuarezo30@gmail.com', 'Information');
+    $mail->addCC('william.suarez-o@escuelaing.edu.co');
+    //$mail->addBCC('wasuarezo30@outlook.com');
 
+    //Attachments
+    //$mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+    //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
 
-                        //FIN ENVIAR CORREO NOTAS
+    //Content
+    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->Subject = $con->nombre_Asignatura($asignatura).' : '.$rowAsistencia["estado"].'   '.date("Y-m-d");
+    $mail->Body    = 'Buenos días '.$row["nombre"].'<br/>'.' No presentó el '.$motivoR;
+    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+    $mail->send();
+    //echo 'Message has been sent';
+} catch (Exception $e) {
+    //echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+}
+//***************************************************************************                        
+//FIN ENVIAR CORREO NOTAS
                     }
                 }
                 $con->registro_envio_correos($cursoR,$motivoR,$fechaR);     
